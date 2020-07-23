@@ -15,6 +15,20 @@ dicionario = {'Link': Link.strip(),
               'Reviews': str(main_container_reviews[0].text).strip()
               }
 
+cursor.execute("SELECT * FROM PRODUTOS")
+resultado = cursor.fetchone()
+for i in resultado:
+    print(i)
+
+cursor.close()
+cursor = conn.cursor()
+
 cursor.execute("insert into [dbo].[PRODUTOS] values (?,?,?,?,?)",
-               (dicionario['Link'], dicionario['Name'], dicionario['Price'], dicionario['Stars'], dicionario['Reviews']))
+               (dicionario['Link'],
+                dicionario['Name'],
+                dicionario['Price'],
+                dicionario['Stars'],
+                dicionario['Reviews']))
 conn.commit()
+
+
