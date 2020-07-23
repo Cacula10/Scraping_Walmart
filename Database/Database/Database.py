@@ -4,4 +4,3 @@ conn = pyodbc.connect('Driver={SQL Server};'
                       'Database=Walmart;'
                       'Trusted_Connection=yes;')
 cursor = conn.cursor()
-

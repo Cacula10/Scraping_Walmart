@@ -8,27 +8,28 @@ for i in first:
         break
 
 dicionario = dict()
-dicionario = {'Link': Link.strip(),
+
+dicionario = {'Link': str(Link.strip()),
               'Name': str(main_container_note[0].a.span.text).strip(),
               'Price': str(main_container_preco[0].span.text).strip(),
               'Stars': str(main_container_star[0].text).strip(),
-              'Reviews': str(main_container_reviews[0].text).strip()
-              }
+              'Reviews': str(main_container_reviews[0].text).strip()}
 
-cursor.execute("SELECT * FROM PRODUTOS")
+cursor.execute("SELECT LINK FROM PRODUTOS")
 resultado = cursor.fetchone()
-for i in resultado:
-    print(i)
+resultado = str(resultado)
 
-cursor.close()
-cursor = conn.cursor()
-
-cursor.execute("insert into [dbo].[PRODUTOS] values (?,?,?,?,?)",
+if dicionario["Link"] == resultado[2:135]:
+    print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO')
+else:
+    cursor.close()
+    cursor = conn.cursor()
+    cursor.execute("insert into [dbo].[PRODUTOS] values (?,?,?,?,?)",
                (dicionario['Link'],
                 dicionario['Name'],
                 dicionario['Price'],
                 dicionario['Stars'],
                 dicionario['Reviews']))
-conn.commit()
-
+    conn.commit()
+    print('REGISTRO CADASTRADO NO BANCO')
 
