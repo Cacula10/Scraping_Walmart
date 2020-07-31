@@ -16,12 +16,14 @@ dicionario = {'Link': str(Link.strip()),
               'Reviews': str(main_container_reviews[0].text).strip()}
 
 cursor.execute("SELECT LINK FROM PRODUTOS")
-resultado = cursor.fetchone()
-resultado = str(resultado)
-if dicionario["Link"] == resultado[2:-4]:
-    print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO')
-    if dicionario["Price"] == resultado[:]:
-        print('Nao tivemos alteração de preço')
+resultado_link = cursor.fetchone()
+resultado_link = str(resultado_link)
+cursor.execute("SELECT PRICE FROM PRODUTOS")
+resultado_price = cursor.fetchone()
+resultado_price = str(resultado_price)
+
+if dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] == resultado_price[2:-4]:
+    print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO TAMBÉM E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO DO PRODUTO')
 else:
     cursor.close()
     cursor = conn.cursor()
