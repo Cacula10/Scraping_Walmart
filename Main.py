@@ -18,18 +18,18 @@ dicionario = {'Link': str(Link.strip()),
 cursor.execute("SELECT LINK FROM PRODUTOS")
 resultado = cursor.fetchone()
 resultado = str(resultado)
-
-if dicionario["Link"] == resultado[2:135]:
+if dicionario["Link"] == resultado[2:-4]:
     print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO')
+    if dicionario["Price"] == resultado[:]:
+        print('Nao tivemos alteração de preço')
 else:
     cursor.close()
     cursor = conn.cursor()
     cursor.execute("insert into [dbo].[PRODUTOS] values (?,?,?,?,?)",
-               (dicionario['Link'],
-                dicionario['Name'],
-                dicionario['Price'],
-                dicionario['Stars'],
-                dicionario['Reviews']))
+                   (dicionario['Link'],
+                    dicionario['Name'],
+                    dicionario['Price'],
+                    dicionario['Stars'],
+                    dicionario['Reviews']))
     conn.commit()
     print('REGISTRO CADASTRADO NO BANCO')
-
