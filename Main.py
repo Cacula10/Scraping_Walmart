@@ -1,6 +1,8 @@
 from Database.Database.Database import cursor, conn
 from Scraping.BeautifulSoup.Beautifulsoup import *
 from datetime import datetime
+import schedule
+
 
 first = str(main_container_link[0]).split()
 for i in first:
