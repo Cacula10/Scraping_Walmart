@@ -43,4 +43,7 @@ if len(resultado_link) <= 4:
 elif dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] == resultado_price[2:-4]:
         print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO')
 elif dicionario["Price"] != resultado_price[2:-4]:
-    print('PARECE QUE O PREÇO MUDOU HEIN')
+    cursor = conn.cursor()
+    cursor.execute("UPDATE PRODUTOS SET NEW_PRECO = (?) WHERE (?) = (?)", datetime.now(), str(dicionario["Link"]), str(dicionario["Link"]))
+    conn.commit()
+    print('ATUALIZADO O PREÇO')
