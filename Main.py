@@ -1,6 +1,8 @@
 from Database.Database.Database import cursor, conn
 from Scraping.BeautifulSoup.Beautifulsoup import *
 from datetime import datetime
+import schedule
+import time
 
 first = str(main_container_link[0]).split()
 for i in first:
@@ -29,6 +31,7 @@ cursor.execute("SELECT PRICE FROM PRODUTOS")
 resultado_price = cursor.fetchone()
 resultado_price = str(resultado_price)
 
+
 if len(resultado_link) <= 4:
     cursor = conn.cursor()
     cursor.execute("insert into [dbo].[PRODUTOS] values (?,?,?,?,?,?,?,?,?,?)",
@@ -44,9 +47,9 @@ if len(resultado_link) <= 4:
                     dicionario['Old_Date']))
     conn.commit()
     print('REGISTRO CADASTRADO NO BANCO')
-elif dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] == resultado_price[2:-4]:# para testar mudo para 3:4
+elif dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] == resultado_price[3:-4]:# para testar mudo para 3:4
         print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO')
-elif dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] != resultado_price[2:-4]:# para testar mudo para 3:4
+elif dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] != resultado_price[3:-4]:# para testar mudo para 3:4
     cursor = conn.cursor()
     cursor.execute("UPDATE PRODUTOS SET NEW_PRICE = (?) WHERE (?) = (?)", dicionario["Price"], str(dicionario["Link"]), str(dicionario["Link"]))
     cursor.execute("update produtos set Old_Price = (?) where (?) = (?)", dicionario["Price"], str(dicionario["Link"]), str(dicionario["Link"]))
@@ -56,3 +59,5 @@ elif dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] != resul
     cursor.execute("update produtos set Date = New_Date where (?) = (?)", str(dicionario["Link"]), str(dicionario["Link"]))
     conn.commit()
     print('ATUALIZADO O PREÇO E A DATA')
+
+# Atualizar update para insert na base
