@@ -17,20 +17,10 @@ dicionario = {'Link': str(Link.strip()),
               'Stars': str(main_container_star[0].text).strip(),
               'Reviews': str(main_container_reviews[0].text).strip()}
 
-cursor.execute("SELECT LINK FROM PRODUTOS")
-resultado_link = cursor.fetchone()
-resultado_link = str(resultado_link)
+cursor.execute("select * from produtos where link = (?)", dicionario["Link"])
+all_reg = cursor.fetchall()
 
-cursor.execute("SELECT PRICE FROM PRODUTOS")
-resultado_price = cursor.fetchone()
-resultado_price = str(resultado_price)
-
-#cursor.execute("select link from produtos")
-#all_reg = cursor.fetchall()
-#last_reg = all_reg[-1]
-
-
-if len(resultado_link) <= 4 or dicionario["Link"] == resultado_link[2:-4] and dicionario["Price"] != resultado_price[3:-4]:
+if len(all_reg) == 0 or all_reg[-1][3] != dicionario["Price"]:
     cursor = conn.cursor()
     cursor.execute("insert into [dbo].[PRODUTOS] values (?,?,?,?,?,?)",
                    (str(dicionario['Link']),
@@ -40,7 +30,7 @@ if len(resultado_link) <= 4 or dicionario["Link"] == resultado_link[2:-4] and di
                     str(dicionario['Stars']),
                     str(dicionario['Reviews'])))
     conn.commit()
-    print('REGISTRO CADASTRADO NO BANCO OU ATUALIZADO PREÇO')
+    conn.close()
+    print('REGISTRO CADASTRADO OU ATUALIZADO NO BANCO')
 else:
     print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO')
-
