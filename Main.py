@@ -1,14 +1,13 @@
 from Database.Database.Database import cursor, conn
 from Scraping.BeautifulSoup.Beautifulsoup import *
 from datetime import datetime
+from Def.Defs.Colors import *
 
 first = str(main_container_link[0]).split()
 for i in first:
     if 'href' in i:
         Link = i
         break
-
-dicionario = dict()
 
 dicionario = {'Link': str(Link.strip()),
               'Date': str(str(datetime.now())),
@@ -31,6 +30,9 @@ if len(all_reg) == 0 or all_reg[-1][3] != dicionario["Price"]:
                     str(dicionario['Reviews'])))
     conn.commit()
     conn.close()
-    print('REGISTRO CADASTRADO OU ATUALIZADO NO BANCO')
+    def_cores('<<< REGISTRO CADASTRADO OU ATUALIZADO NO BANCO >>>', 'azul')
+    def_cores('<<< DESCONECTADO SESSÃO DA BASE >>>', 'azul')
 else:
-    print('NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO')
+    conn.close()
+    def_cores('<<< NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO >>>', 'vermelho')
+    def_cores('<<<DESCONECTADO SESSÃO DA BASE >>>', 'azul')
