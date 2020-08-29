@@ -3,6 +3,13 @@ from Scraping.BeautifulSoup.Beautifulsoup import *
 from datetime import datetime
 from Def.Defs.Colors import *
 
+from pygame import mixer
+mixer.init()
+mixer.music.load('mortal.mp3')
+mixer.music.play()
+parar = input('Digite ENTER para interromper...')
+
+
 first = str(main_container_link[0]).split()
 for i in first:
     if 'href' in i:
@@ -36,3 +43,4 @@ else:
     conn.close()
     def_cores('<<< NÃO VOU ADICIONAR, POIS JA ESTÁ CADASTRADO NO BANCO E TAMBÉM NÃO TIVEMOS ALTERAÇÃO NO PREÇO >>>', 'vermelho')
     def_cores('<<<DESCONECTADO SESSÃO DA BASE >>>', 'azul')
+
