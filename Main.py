@@ -13,10 +13,10 @@ parar = input('Digite ENTER para interromper...')
 first = str(main_container_link[0]).split()
 for i in first:
     if 'href' in i:
-        Link = i
+        link = i
         break
 
-dicionario = {'Link': str(Link.strip()),
+dicionario = {'Link': str(link.strip()),
               'Date': str(str(datetime.now())),
               'Name': str(main_container_note[0].a.span.text).strip(),
               'Price': str(main_container_preco[0].span.text).strip(),
