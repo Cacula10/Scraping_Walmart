@@ -1,5 +1,6 @@
 import pyodbc
 from Def.Defs.Colors import *
+
 try:
     conn = pyodbc.connect("Driver={SQL Server};"
                          "Server=projectwebscraping.cvp5bugirtc4.us-east-2.rds.amazonaws.com,1433;"
