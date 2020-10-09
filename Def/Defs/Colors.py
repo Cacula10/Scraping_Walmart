@@ -14,5 +14,6 @@ def def_cores(msg, cor):
     else:
         print('FAVOR CADASTRAR NOVA COR NA DEF')
 
+##
 
 
