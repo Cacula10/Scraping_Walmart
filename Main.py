@@ -1,3 +1,4 @@
+
 from Scraping.BeautifulSoup.Beautifulsoup import * # rodando a classe beautifulsoup
 from Def.Defs.Colors import *
 
